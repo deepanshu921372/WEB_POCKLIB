@@ -360,7 +360,7 @@ function renderBooks(books) {
                 <button class="bookmark-btn ${isBookmarked(book.id) ? 'bookmarked' : ''}"
                         onclick="toggleBookmark('${book.id}')"
                         aria-label="${isBookmarked(book.id) ? 'Remove bookmark' : 'Add bookmark'}">
-                    ${isBookmarked(book.id) ? '⭐ Bookmarked' : '☆ Bookmark'}
+                    ${isBookmarked(book.id) ? '🔖 Bookmarked' : '🔖 Bookmark'}
                 </button>
                 <button class="details-btn" onclick="showDetails('${book.id}')" aria-label="View details for ${book.title}">
                     Details
@@ -409,7 +409,7 @@ function renderBookmarks() {
                 <button class="bookmark-btn bookmarked"
                         onclick="toggleBookmark('${book.id}')"
                         aria-label="Remove bookmark">
-                    ⭐ Bookmarked
+                    🔖 Bookmarked
                 </button>
                 <button class="details-btn" onclick="showDetails('${book.id}')" aria-label="View details for ${book.title}">
                     Details
@@ -422,10 +422,16 @@ function renderBookmarks() {
 // ==================== Stats ====================
 function updateStats() {
     const statsText = document.getElementById('stats-text');
+    const totalBooksCount = document.getElementById('total-books-count');
     const displayCount = filteredBooks.length;
     const bookmarkCount = bookmarks.length;
 
     statsText.textContent = `Showing ${displayCount} book${displayCount !== 1 ? 's' : ''} • ${bookmarkCount} bookmark${bookmarkCount !== 1 ? 's' : ''}`;
+
+    // Update navbar book counter
+    if (totalBooksCount) {
+        totalBooksCount.textContent = `${booksData.length} Book${booksData.length !== 1 ? 's' : ''}`;
+    }
 }
 
 // ==================== Modal ====================
@@ -450,7 +456,7 @@ function showDetails(bookId) {
                 onclick="toggleBookmark('${book.id}'); showDetails('${book.id}')"
                 style="width: 100%; padding: 0.75rem;"
                 aria-label="${isBookmarked(book.id) ? 'Remove bookmark' : 'Add bookmark'}">
-            ${isBookmarked(book.id) ? '⭐ Bookmarked' : '☆ Bookmark'}
+            ${isBookmarked(book.id) ? '🔖 Bookmarked' : '🔖 Bookmark'}
         </button>
     `;
 

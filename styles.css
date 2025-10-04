@@ -17,17 +17,20 @@
 
 [data-theme="dark"] {
     /* Dark mode colors */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --bg-card: #2d2d2d;
-    --text-primary: #f8f9fa;
-    --text-secondary: #adb5bd;
-    --accent-primary: #5ba3f5;
-    --accent-hover: #4a90e2;
-    --border-color: #495057;
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #1e1e1e;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8b8;
+    --text-tertiary: #808080;
+    --accent-primary: #00d9ff;
+    --accent-hover: #00b8d4;
+    --accent-glow: rgba(0, 217, 255, 0.3);
+    --border-color: #2d2d2d;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+    --card-hover-border: #00d9ff;
 }
 
 /* ==================== Reset & Base Styles ==================== */
@@ -43,7 +46,7 @@ html {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-primary);
     background-color: var(--bg-primary);
     transition: var(--transition);
@@ -150,6 +153,7 @@ body.video-complete {
     align-items: center;
     padding: 0.75rem 0;
     gap: 2rem;
+    cursor: pointer;
 }
 
 .logo-container {
@@ -176,6 +180,27 @@ body.video-complete {
     display: flex;
     gap: 1rem;
     align-items: center;
+}
+
+.book-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.counter-icon {
+    font-size: 1.1rem;
+}
+
+.counter-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
 }
 
 .theme-toggle {
@@ -322,9 +347,12 @@ body.video-complete {
 }
 
 .section-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
     color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 /* ==================== Hero Section ==================== */
@@ -344,24 +372,26 @@ body.video-complete {
 }
 
 .hero-title {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -1px;
 }
 
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     color: var(--accent-primary);
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
 }
 
 .hero-description {
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    line-height: 1.9;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
 }
 
 .hero-features {
@@ -423,28 +453,44 @@ body.video-complete {
 .search-box {
     position: relative;
     flex: 1;
+    max-width: 600px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    pointer-events: none;
 }
 
 .search-input {
     width: 100%;
-    padding: 0.75rem 3rem 0.75rem 1rem;
+    padding: 0.85rem 3rem 0.85rem 3rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1rem;
-    background: var(--bg-card);
+    background: var(--bg-secondary);
     color: var(--text-primary);
     transition: var(--transition);
+}
+
+.search-input::placeholder {
+    color: var(--text-tertiary);
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: var(--bg-card);
 }
 
 .clear-btn {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -454,6 +500,7 @@ body.video-complete {
     color: var(--text-secondary);
     padding: 0.5rem;
     display: none;
+    transition: var(--transition);
 }
 
 .clear-btn.visible {
@@ -461,7 +508,7 @@ body.video-complete {
 }
 
 .clear-btn:hover {
-    color: var(--text-primary);
+    color: var(--accent-primary);
 }
 
 .filter-group {
@@ -478,22 +525,24 @@ body.video-complete {
 }
 
 .genre-filter {
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1.25rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-card);
+    border-radius: 12px;
+    background: var(--bg-secondary);
     color: var(--text-primary);
     font-size: 1rem;
     cursor: pointer;
     transition: var(--transition);
-    min-width: 180px;
+    min-width: 200px;
     text-transform: capitalize;
+    font-weight: 500;
 }
 
 .genre-filter:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: var(--bg-card);
 }
 
 /* ==================== Books Grid ==================== */
@@ -510,17 +559,18 @@ body.video-complete {
 
 .book-card {
     background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
     padding: 1.5rem;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
 }
 
 .book-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--card-hover-border);
+    border-color: var(--card-hover-border);
 }
 
 .book-card:focus-within {
@@ -541,16 +591,17 @@ body.video-complete {
 }
 
 .book-title {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.35rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     color: var(--text-primary);
+    line-height: 1.4;
 }
 
 .book-author {
     font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .book-genre {
@@ -572,18 +623,22 @@ body.video-complete {
 
 .book-tag {
     display: inline-block;
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     background: var(--bg-secondary);
     border-radius: 20px;
     font-size: 0.8rem;
     color: var(--text-secondary);
     transition: var(--transition);
     text-transform: capitalize;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
 }
 
 .book-tag:hover {
     background: var(--accent-primary);
     color: white;
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
 }
 
 .book-actions {
@@ -593,19 +648,22 @@ body.video-complete {
 
 .bookmark-btn {
     background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 600;
     transition: var(--transition);
     flex: 1;
+    color: var(--text-primary);
 }
 
 .bookmark-btn:hover {
     background: var(--accent-primary);
-    color: white;
+    color: #000;
     border-color: var(--accent-primary);
+    transform: translateY(-2px);
 }
 
 .bookmark-btn:focus {
@@ -615,23 +673,28 @@ body.video-complete {
 
 .bookmark-btn.bookmarked {
     background: var(--accent-primary);
-    color: white;
+    color: #000;
     border-color: var(--accent-primary);
+    font-weight: 700;
 }
 
 .details-btn {
-    background: var(--accent-primary);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
+    font-weight: 600;
     transition: var(--transition);
 }
 
 .details-btn:hover {
-    background: var(--accent-hover);
+    background: var(--bg-card);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-2px);
 }
 
 .details-btn:focus {
@@ -717,10 +780,11 @@ body.video-complete {
 
 .faq-answer {
     padding: 0 1.25rem 1.25rem;
-    color: var(--text-secondary);
+    color: var(--text-tertiary);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
+    line-height: 1.7;
 }
 
 .faq-answer.hidden {
@@ -914,6 +978,11 @@ body.video-complete {
 
     .hero-features {
         gap: 1rem;
+    }
+
+    /* Book counter mobile */
+    .book-counter {
+        display: none;
     }
 }
 
