@@ -214,6 +214,12 @@ function setupEventListeners() {
             behavior: 'smooth'
         });
     });
+
+    // Contact form submission
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactFormSubmit);
+    }
 }
 
 // ==================== Update Active Navigation ====================
@@ -477,4 +483,22 @@ function toggleFAQ(e) {
 
     button.setAttribute('aria-expanded', !isExpanded);
     answer.classList.toggle('hidden');
+}
+
+// ==================== Contact Form Submission ====================
+function handleContactFormSubmit(e) {
+    e.preventDefault();
+
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+    };
+
+    // Show success message
+    alert(`Thank you, ${formData.name}! Your message has been received. We'll get back to you at ${formData.email} soon.`);
+
+    // Reset form
+    e.target.reset();
 }
